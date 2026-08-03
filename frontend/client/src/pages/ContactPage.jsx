@@ -46,7 +46,7 @@ function ContactPage() {
           <p>Tell us a little about what you are looking for and the right member of our team will be in touch.</p>
           <div className="contact-cards">
             <article><b>General enquiries</b><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></article>
-            <article><b>Office</b><span>Sydney, NSW<br />Australia</span></article>
+            <article><b>Office</b><span>Tower A The Zenith<br /> Level 9, 821 Pacific Highway <br /> Chatswood, NSW, 2067<br />Australia</span></article>
           </div>
         </div>
 
