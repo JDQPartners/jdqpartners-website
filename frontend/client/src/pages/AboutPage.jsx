@@ -50,9 +50,9 @@ function AboutPage() {
       </section>
 
       <PageCallToAction
-        title={<>One firm.<br /><em>Two ways to partner.</em></>}
-        body="Explore the JDQ Choice Fund or speak with our lending team about an upcoming transaction."
-        button="Explore the Choice Fund"
+        title={<>One fund.<br /><em>Many ways to invest.</em></>}
+        body="Explore the JDQ Choice Fund or speak with our lending team about a customised solution."
+        button="Start a conversation"
         to="/invest"
       />
     </>

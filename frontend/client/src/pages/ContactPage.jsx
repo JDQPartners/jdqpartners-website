@@ -4,23 +4,28 @@ import { Arrow, PageHero } from '../components/SiteLayout'
 const CONTACT_EMAIL = 'info@jdqpartners.com.au'
 
 function ContactPage() {
-  const [emailReady, setEmailReady] = useState(false)
+  const [status, setStatus] = useState('idle')
 
-  function sendEnquiry(event) {
+  async function sendEnquiry(event) {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const subject = `JDQ Partners enquiry — ${data.get('interest')}`
-    const body = [
-      `Name: ${data.get('name')}`,
-      `Email: ${data.get('email')}`,
-      `Phone: ${data.get('phone') || 'Not provided'}`,
-      `Interest: ${data.get('interest')}`,
-      '',
-      data.get('message'),
-    ].join('\n')
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    setStatus('submitting')
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setEmailReady(true)
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString(),
+      })
+
+      if (!response.ok) throw new Error('Submission failed')
+
+      form.reset()
+      setStatus('success')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -45,7 +50,18 @@ function ContactPage() {
           </div>
         </div>
 
-        <form className="light-form" onSubmit={sendEnquiry}>
+        <form
+          className="light-form"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          onSubmit={sendEnquiry}
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p className="honeypot" aria-hidden="true">
+            <label>Do not fill this out<input name="bot-field" tabIndex="-1" autoComplete="off" /></label>
+          </p>
           <label>Full name<input name="name" placeholder="Your name" required /></label>
           <label>Email address<input type="email" name="email" placeholder="you@company.com" required /></label>
           <label>Phone number <i>Optional</i><input type="tel" name="phone" placeholder="+61" /></label>
@@ -59,10 +75,17 @@ function ContactPage() {
             </select>
           </label>
           <label>Message<textarea name="message" rows="5" placeholder="Tell us a little about your enquiry" required /></label>
-          <button className="button button-coral">Prepare email <Arrow /></button>
-          {emailReady && (
-            <p className="form-status" role="status">
-              Your email application has opened with the enquiry addressed to {CONTACT_EMAIL}. Review it and press Send.
+          <button className="button button-coral" disabled={status === 'submitting'}>
+            {status === 'submitting' ? 'Sending…' : 'Submit enquiry'} <Arrow />
+          </button>
+          {status === 'success' && (
+            <p className="form-status form-success" role="status">
+              Thank you. Your enquiry has been sent successfully and our team will be in touch.
+            </p>
+          )}
+          {status === 'error' && (
+            <p className="form-status form-error" role="alert">
+              We could not send your enquiry. Please try again or email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
             </p>
           )}
         </form>
