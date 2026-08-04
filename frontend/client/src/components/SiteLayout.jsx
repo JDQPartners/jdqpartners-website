@@ -119,3 +119,29 @@ export function PageCallToAction({ title, body, button, to }) {
     </section>
   )
 }
+
+export function InformationAccordion({ eyebrow, title, intro, items }) {
+  return (
+    <section className="information-section">
+      <div className="information-heading">
+        <p className="eyebrow">{eyebrow}</p>
+        <h2>{title}</h2>
+        {intro && <p>{intro}</p>}
+      </div>
+      <div className="accordion-list">
+        {items.map((item, index) => (
+          <details key={item.title} className="accordion-item">
+            <summary>
+              <span className="accordion-number">{String(index + 1).padStart(2, '0')}</span>
+              <span>{item.title}</span>
+              <span className="accordion-icon" aria-hidden="true" />
+            </summary>
+            <div className="accordion-content">
+              <div className="accordion-content-inner">{item.content}</div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
