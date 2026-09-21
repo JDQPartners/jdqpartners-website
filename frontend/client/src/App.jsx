@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Footer, Header } from './components/SiteLayout'
+import { BrandLogo, Footer, Header } from './components/SiteLayout'
 import AboutPage from './pages/AboutPage'
 import BorrowPage from './pages/BorrowPage'
 import ContactPage from './pages/ContactPage'
@@ -76,9 +76,7 @@ function App() {
       {isLoading && (
         <div className="site-loader" role="status" aria-label="Loading JDQ Partners">
           <div className="loader-brand">
-            <span>JDQ</span>
-            <i />
-            <small>PARTNERS</small>
+            <BrandLogo className="loader-logo" alt="" />
           </div>
           <div className="loader-line"><span /></div>
         </div>

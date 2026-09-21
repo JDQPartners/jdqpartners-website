@@ -1,4 +1,15 @@
 import { useState } from 'react'
+import jdqPartnersLogo from '../../jdq-partners-without-tagline.png'
+
+export function BrandLogo({ className = '', alt = 'JDQ Partners' }) {
+  return (
+    <img
+      className={`brand-logo ${className}`.trim()}
+      src={jdqPartnersLogo}
+      alt={alt}
+    />
+  )
+}
 
 export function Arrow() {
   return <span aria-hidden="true">↗</span>
@@ -27,8 +38,7 @@ export function Header({ currentPath }) {
   return (
     <header className="topbar">
       <SiteLink to="/about" className="brand" onClick={closeMenu}>
-        <span className="brand-mark">JDQ</span>
-        <span className="brand-name">PARTNERS</span>
+        <BrandLogo className="header-logo" />
       </SiteLink>
 
       <button
@@ -67,8 +77,7 @@ export function Footer() {
   return (
     <footer>
       <SiteLink to="/about" className="brand footer-brand">
-        <span className="brand-mark">JDQ</span>
-        <span className="brand-name">PARTNERS</span>
+        <BrandLogo className="footer-logo" />
       </SiteLink>
       <p>Private credit. Considered differently.</p>
       <div>

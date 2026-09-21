@@ -1921,6 +1921,48 @@ footer .footer-brand .brand-name {
   }
 }
 
+/* JDQ Partners image logo */
+.brand-logo {
+  display: block;
+  width: auto;
+  object-fit: contain;
+}
+
+.topbar .brand {
+  padding: 5px 10px;
+  background: #171717;
+}
+
+.header-logo {
+  height: 50px;
+}
+
+.footer-logo {
+  height: 62px;
+}
+
+.loader-logo {
+  height: 88px;
+}
+
+@media (max-width: 600px) {
+  .topbar .brand {
+    padding: 4px 8px;
+  }
+
+  .header-logo {
+    height: 44px;
+  }
+
+  .footer-logo {
+    height: 54px;
+  }
+
+  .loader-logo {
+    height: 74px;
+  }
+}
+
 /* Borrower funding options */
 .borrow-solution-grid {
   grid-template-columns: repeat(6, 1fr);
